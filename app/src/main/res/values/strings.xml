@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Exquisite Corpse</string>
+    <string name="one_player">One Player</string>
+    <string name="two_players">Two Players</string>
+    <string name="three_players">Three Players</string>
+    <string name="four_players">Four Players</string>
+    <string name="num_players_title">Select the number of players</string>
+    <string-array name="num_players_options">
+        <item>@string/one_player</item>
+        <item>@string/two_players</item>
+        <item>@string/three_players</item>
+        <item>@string/four_players</item>
+    </string-array>
+    <string name="continue_button">Continue</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="ready_button">Ready!</string>
+    <string name="enter_names">Enter Names</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="skip_button">Skip</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="player3">Player 3</string>
+    <string name="player4">Player 4</string>
+    <string name="passing_prompt">Pass the device to </string>
+    <string name="head"> the head</string>
+    <string name="upper_torso"> the upper torso</string>
+    <string name="lower_torso"> the lower torso</string>
+    <string name="torso"> the torso</string>
+    <string name="feet"> the feet</string>
+    <string name="to_draw"> to draw</string>
+    <string name="draw_the">Draw </string>
+</resources>

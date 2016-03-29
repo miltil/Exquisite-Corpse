@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="18dp"
+            android:textSize="32sp"
+            android:textColor="@color/black"
+            android:text="Draw!!!"/>
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp">
+
+                <ImageButton
+                    android:id="@+id/black"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/blacksplatter"/>
+
+                <ImageButton
+                    android:id="@+id/red"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/redsplatter"/>
+
+                <ImageButton
+                    android:id="@+id/pink"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/pinksplatter"/>
+
+                <ImageButton
+                    android:id="@+id/orange"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/orangesplatter"/>
+
+                <ImageButton
+                    android:id="@+id/yellow"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/yellowsplatter"/>
+
+                <ImageButton
+                    android:id="@+id/green"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/greensplatter"/>
+
+                <ImageButton
+                    android:id="@+id/teal"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/tealsplatter"/>
+
+                <ImageButton
+                    android:id="@+id/blue"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/bluesplatter"/>
+
+                <ImageButton
+                    android:id="@+id/light_blue"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/lightbluesplatter"/>
+
+                <ImageButton
+                    android:id="@+id/purple"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/purplesplatter"/>
+
+                <ImageButton
+                    android:id="@+id/brown"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/brownsplatter"/>
+
+                <ImageButton
+                    android:id="@+id/gray"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/greysplatter"/>
+
+                <ImageButton
+                    android:id="@+id/white"
+                    android:layout_width="@dimen/paint_button_size"
+                    android:layout_height="@dimen/paint_button_size"
+                    android:background="@drawable/whitesplatter"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <ImageView
+            android:id="@+id/lineThickness"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"/>
+
+        <SeekBar
+            android:id="@+id/lineWidthAdjust"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="50"
+            android:progress="20"
+            android:layout_gravity="center_horizontal"/>
+
+
+        <me.panavtec.drawableview.DrawableView
+            android:id="@+id/paintView"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:layout_height="225dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+
+
+    </LinearLayout>
+
+
+
+    <ImageButton
+        android:id="@+id/undo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/undo2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="18dp"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+    <TextView
+        android:id="@+id/timer_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="32sp"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="18dp"
+        android:text=":00"/>
+
+</RelativeLayout>
