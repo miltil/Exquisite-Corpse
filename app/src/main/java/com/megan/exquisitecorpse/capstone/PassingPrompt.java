@@ -29,13 +29,19 @@ public class PassingPrompt extends DialogFragment {
     String currentSegment = "";
     String newNamesString;
     String newSegmentsString;
+    String passingText;
+    boolean lastFlag = false;
+    int numPlayers;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        setCancelable(false);
+
         //What we need to get here is the name of the current player (to display on the "pass to")
         //and the part of the body they will be drawing to first display and then put in an intent extra
-
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        numPlayers = preferences.getInt("numPlayers", 3);
         playerNamesString = preferences.getString("playerNames", "next player");
         if(playerNamesString != null){
             playerNames = new LinkedList<>(Arrays.asList(playerNamesString.split(",")));
@@ -50,6 +56,11 @@ public class PassingPrompt extends DialogFragment {
 
         playerNames.remove(0);
         segments.remove(0);
+
+        if(playerNames.size() == 0){
+            lastFlag = true;
+        }
+
         newNamesString = android.text.TextUtils.join(",", playerNames);
         newSegmentsString = android.text.TextUtils.join(",", segments);
 
@@ -67,13 +78,22 @@ public class PassingPrompt extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(getContext(), DrawingInterface.class);
                         intent.putExtra("currentSegment", currentSegment);
+                        intent.putExtra("currentPlayer", currentPlayer);
+                        intent.putExtra("lastFlag", lastFlag);
                         startActivity(intent);
                     }
                 });
 
         TextView passToText = (TextView) convertView.findViewById(R.id.passTo);
-        String passingText = getContext().getString(R.string.passing_prompt) + " " + currentPlayer +
-                " " + getContext().getString(R.string.to_draw) + " " + currentSegment;
+
+        if(numPlayers > 1) {
+            passingText = getContext().getString(R.string.passing_prompt) + " " + currentPlayer +
+                    " " + getContext().getString(R.string.to_draw) + " " + currentSegment;
+        }
+        else{
+            passingText = currentPlayer + ", " + "are you ready" +
+                    " " + getContext().getString(R.string.to_draw) + " " + currentSegment + "?";
+        }
         passToText.setText(passingText);
 
         return builder.create();

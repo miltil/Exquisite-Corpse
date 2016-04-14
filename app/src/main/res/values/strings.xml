@@ -27,6 +27,49 @@
     <string name="lower_torso"> the lower torso</string>
     <string name="torso"> the torso</string>
     <string name="feet"> the feet</string>
-    <string name="to_draw"> to draw</string>
-    <string name="draw_the">Draw </string>
+    <string name="to_draw"> to draw the</string>
+    <string name="draw_the">Draw the</string>
+
+    <string name="delete_warning">Do you want to discard the current game? </string>
+    <string name="discard">Discard</string>
+
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_share">Share</string>
+    <string name="action_gallery">Gallery</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Player name</string>
+    <string name="action_pause">Pause game</string>
+    <string name="action_stop">Stop game</string>
+    <string name="send_to">Send to</string>
+
+    <string name="time_limit">Time Limit</string>
+    <string name="time_limit_key">timer</string>
+    <string name="ten_sec">10</string>
+    <string name="thirty_sec">30</string>
+    <string name="one_min">60</string>
+    <string name="two_min">120</string>
+    <string name="none">0</string>
+    <string-array name="time_limit_options">
+        <item>@string/ten_sec</item>
+        <item>@string/thirty_sec</item>
+        <item>@string/one_min</item>
+        <item>@string/two_min</item>
+        <item>@string/none</item>
+    </string-array>
+    <string name="ten_sec_label">:10</string>
+    <string name="thirty_sec_label">:30</string>
+    <string name="one_min_label">1:00</string>
+    <string name="two_min_label">2:00</string>
+    <string name="none_label">None</string>
+    <string-array name="time_limit_options_labels">
+        <item>@string/ten_sec_label</item>
+        <item>@string/thirty_sec_label</item>
+        <item>@string/one_min_label</item>
+        <item>@string/two_min_label</item>
+        <item>@string/none_label</item>
+    </string-array>
+
+    <string name="gallery_title">Gallery</string>
 </resources>

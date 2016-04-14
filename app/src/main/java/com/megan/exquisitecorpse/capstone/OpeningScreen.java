@@ -2,6 +2,7 @@ package com.megan.exquisitecorpse.capstone;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class OpeningScreen extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_opening_screen);
         getSupportActionBar().hide();
+
         startGameButton = (Button)findViewById(R.id.newgame);
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +44,8 @@ public class OpeningScreen extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(OpeningScreen.this, SettingsActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -50,8 +53,15 @@ public class OpeningScreen extends AppCompatActivity {
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(OpeningScreen.this, Gallery.class);
+                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        return;
     }
 }

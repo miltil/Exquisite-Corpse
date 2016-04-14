@@ -62,6 +62,22 @@ public class EnterNamesDialog extends DialogFragment {
                             }
                             if(!editTextEmpty(player2)) {
                                 playerNames.append(player2.getText().toString());
+                                playerNames.append(",");
+                            }
+                            else{
+                                playerNames.append(getContext().getString(R.string.player2));
+                                playerNames.append(",");
+                            }
+                            if(!editTextEmpty(player1)) {
+                                playerNames.append(player1.getText().toString());
+                                playerNames.append(",");
+                            }
+                            else{
+                                playerNames.append(getContext().getString(R.string.player1));
+                                playerNames.append(",");
+                            }
+                            if(!editTextEmpty(player2)) {
+                                playerNames.append(player2.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player2));
@@ -131,7 +147,7 @@ public class EnterNamesDialog extends DialogFragment {
 
                         //Add an intent extra to start the game
                         Intent intent = new Intent(getContext(), SheetOfPaper.class);
-                        intent.putExtra("firstFlag", true);
+                        intent.putExtra("lastFlag", false);
                         startActivity(intent);
                     }
                 })
@@ -143,6 +159,10 @@ public class EnterNamesDialog extends DialogFragment {
                             playerNames.append(",");
                         }
                         else if(numPlayers == 2){
+                            playerNames.append(getContext().getString(R.string.player1));
+                            playerNames.append(",");
+                            playerNames.append(getContext().getString(R.string.player2));
+                            playerNames.append(",");
                             playerNames.append(getContext().getString(R.string.player1));
                             playerNames.append(",");
                             playerNames.append(getContext().getString(R.string.player2));
@@ -171,7 +191,7 @@ public class EnterNamesDialog extends DialogFragment {
 
                         //Add an intent extra to start the game
                         Intent intent = new Intent(getContext(), SheetOfPaper.class);
-                        intent.putExtra("firstFlag", true);
+                        intent.putExtra("lastFlag", false);
                         startActivity(intent);
 
                     }
@@ -187,7 +207,7 @@ public class EnterNamesDialog extends DialogFragment {
             player4.setVisibility(View.GONE);
 
             //Set up sections
-            sectionsString = "Legs";
+            sectionsString = "legs";
             editor.putString("segments", sectionsString);
             editor.commit();
         }
@@ -198,7 +218,7 @@ public class EnterNamesDialog extends DialogFragment {
             player4.setVisibility(View.GONE);
 
             //Set up sections
-            sectionsString = "the head,the upper torso,the lower torso,the legs";
+            sectionsString = "head,upper torso,lower torso,legs";
             editor.putString("segments", sectionsString);
             editor.commit();
         }
@@ -208,7 +228,7 @@ public class EnterNamesDialog extends DialogFragment {
             player4.setVisibility(View.GONE);
 
             //Set up sections
-            sectionsString = "the head,the torso,the legs";
+            sectionsString = "head,torso,legs";
             editor.putString("segments", sectionsString);
             editor.commit();
         }
@@ -217,7 +237,7 @@ public class EnterNamesDialog extends DialogFragment {
             builder.setTitle(R.string.enter_names);
 
             //Set up sections
-            sectionsString = "the head,the upper torso,the lower torso,the legs";
+            sectionsString = "head,upper torso,lower torso,legs";
             editor.putString("segments", sectionsString);
             editor.commit();
         }

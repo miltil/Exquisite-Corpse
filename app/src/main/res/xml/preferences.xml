@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListPreference
+        android:title="@string/time_limit"
+        android:key="@string/time_limit_key"
+        android:defaultValue="@string/thirty_sec"
+        android:entryValues="@array/time_limit_options"
+        android:entries="@array/time_limit_options_labels" />
+
+    <CheckBoxPreference
+        android:title="Zoomable Canvas"
+        android:key="zoom"
+        android:defaultValue="true"
+        />
+
+</PreferenceScreen>

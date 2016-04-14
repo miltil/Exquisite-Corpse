@@ -1,10 +1,17 @@
 package com.megan.exquisitecorpse.capstone;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,36 +21,90 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
 import me.panavtec.drawableview.DrawableView;
 import me.panavtec.drawableview.DrawableViewConfig;
 
-public class DrawingInterface extends AppCompatActivity {
+public class DrawingInterface extends AppCompatActivity implements DialogInterface.OnCancelListener {
 
     private TextView timerView;
     private ImageButton undoButton;
+    private ImageButton doneButton;
     private ImageButton black, red, pink, orange, yellow, green, teal, blue, light_blue,
             purple, brown, gray, white;
     private TextView titleText;
     private String currentSegment = "next segment!";
+    private String currentPlayer;
     private SeekBar lineWidthAdjust;
     private DrawableView drawableView;
     private DrawableViewConfig config = new DrawableViewConfig();
     private ImageView lineThickness;
+    private boolean lastFlag = false;
+    private CountDownTimer timer;
+    private boolean zoomable = true;
+    private String timeLimitString;
+    private int timeLimit;
+    private boolean timerFlag = true;
+    private Bitmap bitmapImage;
+    private byte[] byteArrayImage;
+    private Picture picture;
+    private int rawTime;
+    private int pausedTime;
+    private String polishedTime;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.draw_interface_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_pause:
+                if(timerFlag) {
+                    pausedTime = rawTime;
+                    timer.cancel();
+                }
+                GameInterrupt gameInterrupt = GameInterrupt.newInstance("home");
+                gameInterrupt.show(getSupportFragmentManager(), "HI");
+                return true;
+            case R.id.action_stop:
+                if(timerFlag) {
+                    timer.cancel();
+                }
+                Intent intent = new Intent(this, OpeningScreen.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_settings:
+                timer.cancel();
+                GameInterrupt interrupt = GameInterrupt.newInstance("settings");
+                interrupt.show(getSupportFragmentManager(), "HI");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.drawing_interface);
-        getSupportActionBar().hide();
 
         Intent intent = getIntent();
         currentSegment = intent.getStringExtra("currentSegment");
-        titleText = (TextView)findViewById(R.id.title_text);
+        currentPlayer = intent.getStringExtra("currentPlayer");
+        lastFlag = intent.getBooleanExtra("lastFlag", false);
         String headingText = this.getString(R.string.draw_the) + " " + currentSegment + "!";
-        titleText.setText(headingText);
+        getSupportActionBar().setTitle(headingText);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        zoomable = preferences.getBoolean("zoom", true);
+        timeLimitString = preferences.getString("timer", "30");
+        timeLimit = Integer.parseInt(timeLimitString) * 1000;
 
         configureDrawView();
         setColorButtons();
@@ -53,6 +114,27 @@ public class DrawingInterface extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawableView.undo();
+            }
+        });
+
+        doneButton = (ImageButton)findViewById(R.id.done_button);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(timerFlag) {
+                    timer.cancel();
+                }
+                bitmapImage = drawableView.obtainBitmap();
+                byteArrayImage = Utility.getBytes(bitmapImage);
+                picture = new Picture();
+                picture.artist = currentPlayer;
+                picture.segment = currentSegment;
+                picture.drawing = byteArrayImage;
+                picture.save();
+
+                Intent intent = new Intent(DrawingInterface.this, SheetOfPaper.class);
+                intent.putExtra("lastFlag", lastFlag);
+                startActivity(intent);
             }
         });
 
@@ -82,26 +164,65 @@ public class DrawingInterface extends AppCompatActivity {
 
         timerView = (TextView)findViewById(R.id.timer_view);
 
-        new CountDownTimer(10000, 1000) {
+        if (timeLimit != 0) {
 
+            setTimer(timeLimit);
+        }
+
+        else{
+            timerView.setVisibility(View.GONE);
+            timerFlag = false;
+        }
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(timerFlag) {
+            pausedTime = rawTime;
+            timer.cancel();
+        }
+        GameInterrupt gameInterrupt = GameInterrupt.newInstance("home");
+        gameInterrupt.show(getSupportFragmentManager(), "HI");
+        return;
+    }
+
+    public void setTimer(int timeLimit){
+        timer = new CountDownTimer(timeLimit, 1000) {
             public void onTick(long millisUntilFinished) {
-                int rawTime = (int)millisUntilFinished / 1000;
-                if(rawTime >= 10){
-                    timerView.setText(":" + rawTime);
+                rawTime = (int)millisUntilFinished;
+                if(rawTime >= 60000) {
+                    polishedTime = String.format("%d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes(rawTime),
+                            TimeUnit.MILLISECONDS.toSeconds(rawTime) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(rawTime))
+                    );
                 }
-                else{
-                    timerView.setText(":0" + rawTime);
+                else {
+                    polishedTime = String.format(":%02d",
+                            TimeUnit.MILLISECONDS.toSeconds(rawTime)
+                    );
                 }
+                timerView.setText(polishedTime);
             }
 
             public void onFinish() {
                 timerView.setText("Time's up!");
+
+                bitmapImage = drawableView.obtainBitmap();
+                byteArrayImage = Utility.getBytes(bitmapImage);
+                picture = new Picture();
+                picture.artist = currentPlayer;
+                picture.segment = currentSegment;
+                picture.drawing = byteArrayImage;
+                picture.save();
+
                 Intent intent = new Intent(DrawingInterface.this, SheetOfPaper.class);
-                intent.putExtra("firstFlag", false);
+                intent.putExtra("lastFlag", lastFlag);
                 startActivity(intent);
             }
         }.start();
-
     }
 
     public void setColorButtons(){
@@ -219,12 +340,26 @@ public class DrawingInterface extends AppCompatActivity {
         config.setShowCanvasBounds(true); // If the view is bigger than canvas, with this the user will see the bounds (Recommended)
         config.setStrokeWidth(20.0f);
         config.setMinZoom(1.0f);
-        config.setMaxZoom(3.0f);
         config.setCanvasHeight(675);
         config.setCanvasWidth(900);
+
+        if(zoomable) {
+            config.setMaxZoom(3.0f);
+        }
+        else {
+            config.setMaxZoom(1.0f);
+        }
+
         drawableView.setConfig(config);
 
         drawableView.setBackgroundColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
+    public void onCancel(final DialogInterface dialog) {
+        if(timerFlag) {
+            setTimer(pausedTime);
+        }
     }
 
 }
