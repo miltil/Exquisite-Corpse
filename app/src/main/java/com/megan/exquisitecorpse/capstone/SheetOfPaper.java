@@ -25,12 +25,13 @@ import android.widget.Toast;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SheetOfPaper extends AppCompatActivity {
 
     private boolean lastFlag;
-    private TextView beholdText;
     private ImageView headHolder;
     private ImageView upperTorsoHolder;
     private ImageView torsoHolder;
@@ -49,6 +50,10 @@ public class SheetOfPaper extends AppCompatActivity {
     private Bitmap fullBitmap;
     private byte[] fullByteArray;
     private GalleryPicture fullPicture;
+    private NameAssociation nameAssociation;
+    private long pictureId;
+    private String playerNamesString;
+    private List<String> playerNames;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,6 +82,8 @@ public class SheetOfPaper extends AppCompatActivity {
                     fullPicture = new GalleryPicture();
                     fullPicture.full_drawing = fullByteArray;
                     fullPicture.save();
+                    pictureId = fullPicture.getId();
+                    associateNames(pictureId);
                     Toast.makeText(this, "Your corpse was saved to the gallery", Toast.LENGTH_LONG).show();
                     saveFlag = true;
                     new Delete().from(Picture.class).execute();
@@ -146,9 +153,7 @@ public class SheetOfPaper extends AppCompatActivity {
             PassingPrompt prompt = new PassingPrompt();
             prompt.show(getSupportFragmentManager(), "HI");
         } else {
-           // beholdText.setText("Behold your creation!");
             getSupportActionBar().show();
-            //getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setTitle("Your corpse");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -165,6 +170,10 @@ public class SheetOfPaper extends AppCompatActivity {
                 }
             });
 
+            playerNamesString = preferences.getString("playerNameAssociations", "Testing");
+            if(playerNamesString != null){
+                playerNames = new LinkedList<>(Arrays.asList(playerNamesString.split(",")));
+            }
 
             if(numPlayers == 2 || numPlayers == 4) {
                 headBitmap = getPic("head");
@@ -252,17 +261,27 @@ public class SheetOfPaper extends AppCompatActivity {
         if(numPlayers == 3){
             canvas.drawBitmap(parts[0], 0, 0, null);
             canvas.drawBitmap(parts[1], 0, parts[0].getHeight(), null);
-            canvas.drawBitmap(parts[2], 0, parts[1].getHeight()*2, null);
+            canvas.drawBitmap(parts[2], 0, parts[1].getHeight() * 2, null);
         }
 
         else{
             canvas.drawBitmap(parts[0], 0, 0, null);
             canvas.drawBitmap(parts[1], 0, parts[0].getHeight(), null);
             canvas.drawBitmap(parts[2], 0, parts[1].getHeight()*2, null);
-            canvas.drawBitmap(parts[3], 0, parts[2].getHeight()*3, null);
+            canvas.drawBitmap(parts[3], 0, parts[2].getHeight() * 3, null);
         }
 
         return result;
+    }
+
+    public void associateNames(long pictureId){
+        for(int i = 0; i < playerNames.size(); i++) {
+            nameAssociation = new NameAssociation();
+            String player = playerNames.get(i);
+            nameAssociation.artistName = player;
+            nameAssociation.drawingId = pictureId;
+            nameAssociation.save();
+        }
     }
 
 }

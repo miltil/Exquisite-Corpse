@@ -30,7 +30,8 @@ public class GalleryAdapter extends ArrayAdapter<GalleryPicture> {
         ImageView drawingView = (ImageView) convertView.findViewById(R.id.display_drawing_view);
         byte[] bytePicture = galleryPicture.full_drawing;
         Bitmap bitmapPicture = Utility.getImage(bytePicture);
-        drawingView.setImageBitmap(bitmapPicture);
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmapPicture, 200, 400, true);
+        drawingView.setImageBitmap(resizedBitmap);
 
         return convertView;
     }

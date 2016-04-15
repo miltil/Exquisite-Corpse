@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.activeandroid.query.Select;
 
@@ -75,16 +76,15 @@ public class Gallery extends AppCompatActivity {
         gridView = (GridView)findViewById(R.id.grid);
         gridView.setAdapter(galleryAdapter);
 
-        GalleryPicture galleryPicture = new Select()
+        List galleryPictures = new Select()
                 .from(GalleryPicture.class)
                 .orderBy("ID DESC")
-                .executeSingle();
+                .execute();
 
-        galleryAdapter.add(galleryPicture);
+        for(int i = 0; i < galleryPictures.size(); i++) {
+            galleryAdapter.add((GalleryPicture)galleryPictures.get(i));
+        }
 
-       /* ImageView fullImageTest = (ImageView)findViewById(R.id.fullImageTest);
-
-        fullImageTest.setImageBitmap(bitmapPicture); */
     }
 
     @Override

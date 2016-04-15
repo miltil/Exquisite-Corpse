@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.preference.PreferenceManager;
@@ -19,26 +20,47 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import android.widget.ArrayAdapter;
+
+import com.activeandroid.query.Select;
 
 public class EnterNamesDialog extends DialogFragment {
     int numPlayers;
     StringBuilder playerNames = new StringBuilder();
     String playerNamesString;
     String sectionsString;
+    ArrayList<String> artistsArrayList;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         final SharedPreferences.Editor editor = preferences.edit();
         numPlayers = preferences.getInt("numPlayers", 3);
+        String[] artistNameArray;
+        artistsArrayList = new ArrayList<>();
+        List artistList = new Select()
+                .from(Artists.class)
+                .orderBy("ID DESC")
+                .execute();
+        for(int i = 0; i < artistList.size(); i++) {
+            Artists artist = (Artists)artistList.get(i);
+            artistsArrayList.add(artist.artistName);
+        }
+        artistNameArray = artistsArrayList.toArray(new String[artistsArrayList.size()]);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View convertView = (LinearLayout) inflater.inflate(R.layout.enter_names_dialog, null);
-        final EditText player1 = (EditText) convertView.findViewById(R.id.name1);
-        final EditText player2 = (EditText) convertView.findViewById(R.id.name2);
-        final EditText player3 = (EditText) convertView.findViewById(R.id.name3);
-        final EditText player4 = (EditText) convertView.findViewById(R.id.name4);
+
+        final AutoCompleteTextView player1 = (AutoCompleteTextView) convertView.findViewById(R.id.name1);
+        player1.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
+        final AutoCompleteTextView player2 = (AutoCompleteTextView) convertView.findViewById(R.id.name2);
+        player2.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
+        final AutoCompleteTextView player3 = (AutoCompleteTextView) convertView.findViewById(R.id.name3);
+        player3.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
+        final AutoCompleteTextView player4 = (AutoCompleteTextView) convertView.findViewById(R.id.name4);
+        player4.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
         builder.setView(convertView)
                 .setPositiveButton(R.string.continue_button, new DialogInterface.OnClickListener() {
                     @Override
@@ -46,6 +68,7 @@ public class EnterNamesDialog extends DialogFragment {
                         if(numPlayers == 1){
                             if(!editTextEmpty(player1)) {
                                 playerNames.append(player1.getText().toString());
+                                addArtist(player1.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player1));
@@ -55,6 +78,7 @@ public class EnterNamesDialog extends DialogFragment {
                             if(!editTextEmpty(player1)) {
                                 playerNames.append(player1.getText().toString());
                                 playerNames.append(",");
+                                addArtist(player1.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player1));
@@ -63,6 +87,7 @@ public class EnterNamesDialog extends DialogFragment {
                             if(!editTextEmpty(player2)) {
                                 playerNames.append(player2.getText().toString());
                                 playerNames.append(",");
+                                addArtist(player2.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player2));
@@ -87,6 +112,7 @@ public class EnterNamesDialog extends DialogFragment {
                             if(!editTextEmpty(player1)) {
                                 playerNames.append(player1.getText().toString());
                                 playerNames.append(",");
+                                addArtist(player1.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player1));
@@ -95,6 +121,7 @@ public class EnterNamesDialog extends DialogFragment {
                             if(!editTextEmpty(player2)) {
                                 playerNames.append(player2.getText().toString());
                                 playerNames.append(",");
+                                addArtist(player2.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player2));
@@ -102,6 +129,7 @@ public class EnterNamesDialog extends DialogFragment {
                             }
                             if(!editTextEmpty(player3)) {
                                 playerNames.append(player3.getText().toString());
+                                addArtist(player3.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player3));
@@ -111,6 +139,7 @@ public class EnterNamesDialog extends DialogFragment {
                             if(!editTextEmpty(player1)) {
                                 playerNames.append(player1.getText().toString());
                                 playerNames.append(",");
+                                addArtist(player1.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player1));
@@ -119,6 +148,7 @@ public class EnterNamesDialog extends DialogFragment {
                             if(!editTextEmpty(player2)) {
                                 playerNames.append(player2.getText().toString());
                                 playerNames.append(",");
+                                addArtist(player2.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player2));
@@ -127,6 +157,7 @@ public class EnterNamesDialog extends DialogFragment {
                             if(!editTextEmpty(player3)) {
                                 playerNames.append(player3.getText().toString());
                                 playerNames.append(",");
+                                addArtist(player3.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player3));
@@ -134,6 +165,7 @@ public class EnterNamesDialog extends DialogFragment {
                             }
                             if(!editTextEmpty(player4)) {
                                 playerNames.append(player4.getText().toString());
+                                addArtist(player4.getText().toString());
                             }
                             else{
                                 playerNames.append(getContext().getString(R.string.player4));
@@ -143,6 +175,11 @@ public class EnterNamesDialog extends DialogFragment {
                         //Add the player names to the shared preferences
                         playerNamesString = playerNames.toString();
                         editor.putString("playerNames", playerNamesString);
+                        editor.commit();
+
+                        //Add the player names to the shared preferences to associate with the completed
+                        //drawing at the game's end
+                        editor.putString("playerNameAssociations", playerNamesString);
                         editor.commit();
 
                         //Add an intent extra to start the game
@@ -184,7 +221,7 @@ public class EnterNamesDialog extends DialogFragment {
                             playerNames.append(getContext().getString(R.string.player4));
                         }
 
-                        //Add the player names to the shared preferences
+                        //Add the player names to the shared preferences to keep track of current player
                         playerNamesString = playerNames.toString();
                         editor.putString("playerNames", playerNamesString);
                         editor.commit();
@@ -247,5 +284,13 @@ public class EnterNamesDialog extends DialogFragment {
 
     boolean editTextEmpty(EditText e){
         return e.getText().toString().trim().length() == 0;
+    }
+
+    public void addArtist(String artistName){
+        if(!artistsArrayList.contains(artistName)) {
+            Artists artist = new Artists();
+            artist.artistName = artistName;
+            artist.save();
+        }
     }
 }
