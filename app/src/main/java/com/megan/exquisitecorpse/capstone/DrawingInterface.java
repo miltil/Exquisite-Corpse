@@ -61,15 +61,23 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(!timerFlag) {
+            menu.removeItem(R.id.action_pause);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_pause:
                 if(timerFlag) {
                     pausedTime = rawTime;
                     timer.cancel();
+                    GameInterrupt gameInterrupt = GameInterrupt.newInstance("home");
+                    gameInterrupt.show(getSupportFragmentManager(), "HI");
                 }
-                GameInterrupt gameInterrupt = GameInterrupt.newInstance("home");
-                gameInterrupt.show(getSupportFragmentManager(), "HI");
                 return true;
             case R.id.action_stop:
                 if(timerFlag) {

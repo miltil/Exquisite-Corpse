@@ -41,9 +41,5 @@ public class GalleryAdapter extends ArrayAdapter<GalleryPicture> {
         super.add(object);
     }
 
-    public int getLength(){
-        int listLength = drawings.size();
-        return listLength;
-    }
 
 }

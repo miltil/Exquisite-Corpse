@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.activeandroid.query.Select;
@@ -75,6 +77,16 @@ public class Gallery extends AppCompatActivity {
         galleryAdapter = new GalleryAdapter(this, new ArrayList<GalleryPicture>());
         gridView = (GridView)findViewById(R.id.grid);
         gridView.setAdapter(galleryAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GalleryPicture galleryPicture = galleryAdapter.getItem(position);
+                long picID = galleryPicture.getId();
+                Intent i = new Intent(Gallery.this, PictureViewer.class);
+                i.putExtra("picID", picID);
+                startActivity(i);
+            }
+        });
 
         List galleryPictures = new Select()
                 .from(GalleryPicture.class)

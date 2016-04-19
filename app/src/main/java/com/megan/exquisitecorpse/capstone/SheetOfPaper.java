@@ -1,12 +1,17 @@
 package com.megan.exquisitecorpse.capstone;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
@@ -77,16 +82,9 @@ public class SheetOfPaper extends AppCompatActivity {
                 return true;
             case R.id.action_save:
                 if(deleteFlag == false && saveFlag == false) {
-                    fullBitmap = combineParts(parts);
-                    fullByteArray = Utility.getBytes(fullBitmap);
-                    fullPicture = new GalleryPicture();
-                    fullPicture.full_drawing = fullByteArray;
-                    fullPicture.save();
-                    pictureId = fullPicture.getId();
-                    associateNames(pictureId);
-                    Toast.makeText(this, "Your corpse was saved to the gallery", Toast.LENGTH_LONG).show();
-                    saveFlag = true;
-                    new Delete().from(Picture.class).execute();
+                    SaveTask saveTask = new SaveTask();
+                    saveTask.execute();
+                    Toast.makeText(SheetOfPaper.this, "Your corpse was saved to the gallery", Toast.LENGTH_LONG).show();
                 }
                 else if(deleteFlag == true) {
                     Toast.makeText(this, "Sorry, your corpse was deleted!", Toast.LENGTH_LONG).show();
@@ -281,6 +279,31 @@ public class SheetOfPaper extends AppCompatActivity {
             nameAssociation.artistName = player;
             nameAssociation.drawingId = pictureId;
             nameAssociation.save();
+        }
+    }
+
+    private class SaveTask extends AsyncTask<Void, Void, Boolean> {
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground (Void... params){
+            fullBitmap = combineParts(parts);
+            fullByteArray = Utility.getBytes(fullBitmap);
+            fullPicture = new GalleryPicture();
+            fullPicture.full_drawing = fullByteArray;
+            fullPicture.save();
+            pictureId = fullPicture.getId();
+            associateNames(pictureId);
+            saveFlag = true;
+            new Delete().from(Picture.class).execute();
+            return true;
+        }
+
+        protected void onPostExecute() {
+            super.onPostExecute(true);
         }
     }
 

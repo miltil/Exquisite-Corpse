@@ -28,6 +28,10 @@ public class DummySearchable extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery);
+
+        getSupportActionBar().setTitle(R.string.results_title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         galleryAdapter = new GalleryAdapter(this, new ArrayList<GalleryPicture>());
         gridView = (GridView)findViewById(R.id.grid);
         gridView.setAdapter(galleryAdapter);

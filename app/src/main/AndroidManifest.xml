@@ -39,7 +39,12 @@
 
         </activity>
 
+        <activity android:name=".PictureViewer"
+            android:noHistory="true"
+            android:parentActivityName=".Gallery"/>
+
         <activity android:name=".DummySearchable"
+            android:parentActivityName=".Gallery"
             android:noHistory="true">
 
             <intent-filter>
@@ -52,6 +57,14 @@
                 android:resource="@xml/searchable" />
 
         </activity>
+
+        <receiver android:name="Widget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
 
         <meta-data android:name="AA_DB_NAME" android:value="pictures.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="5" />
