@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/maintitle"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:text="Collaborative Drawing Game"/>
 
@@ -35,25 +35,33 @@
         style="?android:attr/borderlessButtonStyle"
         android:text="NEW GAME"/>
 
-    <Button
-        android:id="@+id/settingsbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        style="?android:attr/borderlessButtonStyle"
-        android:text="Settings"/>
 
-    <Button
+    <ImageButton
+    android:id="@+id/settingsbutton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentBottom="true"
+    style="?android:attr/borderlessButtonStyle"
+    android:background="@drawable/settingsgrave"/>
+
+    <ImageButton
         android:id="@+id/gallerybutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         style="?android:attr/borderlessButtonStyle"
-        android:text="Gallery"/>
+        android:background="@drawable/gallerygrave"/>
+
+    <ImageButton
+        android:id="@+id/aboutbutton"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="@drawable/aboutgrave"/>
 
 
 </RelativeLayout>

@@ -29,6 +29,7 @@ public class PictureViewer extends AppCompatActivity {
     ArrayList<String> artistList;
     String artistListString = "This corpse brought to you by ";
     NameAssociation nameAssociation;
+    private String artistString;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,6 +45,7 @@ public class PictureViewer extends AppCompatActivity {
                 corpseHolder.setVisibility(View.INVISIBLE);
                 artistHolder.setVisibility(View.INVISIBLE);
                 galleryPicture.delete();
+                deleteNameAssociations(galleryPicture.getId());
                 return true;
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
@@ -98,16 +100,36 @@ public class PictureViewer extends AppCompatActivity {
         if(nameAssociationList != null && nameAssociationList.size() > 1){
             for(int i = 0; i < nameAssociationList.size() - 1; i++) {
                 nameAssociation = (NameAssociation) nameAssociationList.get(i);
-                artistListString = artistListString.concat(nameAssociation.artistName + ", ");
+                artistString = (nameAssociation.artistName).substring(0,1) +
+                        (nameAssociation.artistName).substring(1).toLowerCase();
+                artistListString = artistListString.concat(artistString + ", ");
             }
             nameAssociation = (NameAssociation) nameAssociationList.get(nameAssociationList.size() - 1);
-            artistListString = artistListString.concat("and " + nameAssociation.artistName);
+            artistString = (nameAssociation.artistName).substring(0,1) +
+                    (nameAssociation.artistName).substring(1).toLowerCase();
+            artistListString = artistListString.concat("and " + artistString);
             artistHolder.setText(artistListString);
         }
         else if(nameAssociationList.size() == 1){
             nameAssociation = (NameAssociation) nameAssociationList.get(0);
-            artistListString = artistListString.concat(nameAssociation.artistName);
+            artistString = (nameAssociation.artistName).substring(0,1) +
+                    (nameAssociation.artistName).substring(1).toLowerCase();
+            artistListString = artistListString.concat(artistString);
             artistHolder.setText(artistListString);
+        }
+    }
+
+    private void deleteNameAssociations(long deleteID){
+        List nameAssociationsToDelete = new Select()
+                .from(NameAssociation.class)
+                .where("DrawingId = ?", deleteID)
+                .orderBy("ID ASC")
+                .execute();
+        if(nameAssociationsToDelete != null && !nameAssociationsToDelete.isEmpty()) {
+            for (int i = 0; i < nameAssociationsToDelete.size(); i++) {
+                NameAssociation itemToDelete = (NameAssociation) nameAssociationsToDelete.get(i);
+                itemToDelete.delete();
+            }
         }
     }
 

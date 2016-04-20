@@ -5,6 +5,8 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -13,7 +15,7 @@ import com.activeandroid.query.Select;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DummySearchable extends AppCompatActivity {
+public class Searchable extends AppCompatActivity {
 
     private List nameAssociationList;
     private ArrayList idList = new ArrayList();
@@ -35,6 +37,17 @@ public class DummySearchable extends AppCompatActivity {
         galleryAdapter = new GalleryAdapter(this, new ArrayList<GalleryPicture>());
         gridView = (GridView)findViewById(R.id.grid);
         gridView.setAdapter(galleryAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GalleryPicture galleryPicture = galleryAdapter.getItem(position);
+                long picID = galleryPicture.getId();
+                Intent i = new Intent(Searchable.this, PictureViewer.class);
+                i.putExtra("picID", picID);
+                startActivity(i);
+            }
+        });
+
         handleIntent(getIntent());
     }
 
@@ -47,6 +60,7 @@ public class DummySearchable extends AppCompatActivity {
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
+            query = query.toUpperCase();
 
             nameAssociationList = new Select()
                     .from(NameAssociation.class)
@@ -92,6 +106,13 @@ public class DummySearchable extends AppCompatActivity {
             }
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Gallery.class);
+        startActivity(intent);
+        return;
     }
 
 }

@@ -15,12 +15,14 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 import android.support.v4.app.DialogFragment;
+import android.widget.ImageButton;
 
 public class OpeningScreen extends AppCompatActivity {
 
     private Button startGameButton;
-    private Button settingsButton;
-    private Button galleryButton;
+    private ImageButton settingsButton;
+    private ImageButton galleryButton;
+    private ImageButton aboutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class OpeningScreen extends AppCompatActivity {
             }
         });
 
-        settingsButton = (Button)findViewById(R.id.settingsbutton);
+        settingsButton = (ImageButton)findViewById(R.id.settingsbutton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +51,16 @@ public class OpeningScreen extends AppCompatActivity {
             }
         });
 
-        galleryButton = (Button)findViewById(R.id.gallerybutton);
+        aboutButton = (ImageButton)findViewById(R.id.aboutbutton);
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OpeningScreen.this, AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        galleryButton = (ImageButton)findViewById(R.id.gallerybutton);
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

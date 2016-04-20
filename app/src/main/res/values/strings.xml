@@ -72,5 +72,6 @@
     </string-array>
 
     <string name="gallery_title">Gallery</string>
+    <string name="about_title">About</string>
     <string name="results_title">Results</string>
 </resources>

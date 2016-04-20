@@ -276,7 +276,7 @@ public class SheetOfPaper extends AppCompatActivity {
         for(int i = 0; i < playerNames.size(); i++) {
             nameAssociation = new NameAssociation();
             String player = playerNames.get(i);
-            nameAssociation.artistName = player;
+            nameAssociation.artistName = player.toUpperCase();
             nameAssociation.drawingId = pictureId;
             nameAssociation.save();
         }

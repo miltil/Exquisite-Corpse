@@ -35,7 +35,7 @@
 
                 <meta-data
                     android:name="android.app.default_searchable"
-                    android:value=".DummySearchable" />
+                    android:value=".Searchable" />
 
         </activity>
 
@@ -43,7 +43,11 @@
             android:noHistory="true"
             android:parentActivityName=".Gallery"/>
 
-        <activity android:name=".DummySearchable"
+        <activity android:name=".AboutActivity"
+            android:noHistory="true"
+            android:parentActivityName=".OpeningScreen"/>
+
+        <activity android:name=".Searchable"
             android:parentActivityName=".Gallery"
             android:noHistory="true">
 
