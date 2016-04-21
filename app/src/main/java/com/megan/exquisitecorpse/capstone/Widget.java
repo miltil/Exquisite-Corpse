@@ -8,11 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.activeandroid.query.Select;
 
 public class Widget extends AppWidgetProvider {
+
+    private Bitmap bitmapPicture = null;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -25,12 +28,20 @@ public class Widget extends AppWidgetProvider {
                     .from(GalleryPicture.class)
                     .orderBy("ID DESC")
                     .executeSingle();
-            byte[] bytePicture = galleryPicture.full_drawing;
-            Bitmap bitmapPicture = Utility.getImage(bytePicture);
+            if(galleryPicture != null) {
+                byte[] bytePicture = galleryPicture.full_drawing;
+                bitmapPicture = Utility.getImage(bytePicture);
+            }
 
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.widget);
-            remoteViews.setImageViewBitmap(R.id.widget_image, bitmapPicture);
+            if(bitmapPicture != null) {
+                remoteViews.setImageViewBitmap(R.id.widget_image, bitmapPicture);
+                remoteViews.setViewVisibility(R.id.no_image_available, View.GONE);
+            }
+            else{
+                remoteViews.setTextViewText(R.id.no_image_available, "No drawings yet");
+            }
 
             // Opens the app when you click on the top banner
             Intent bannerIntent = new Intent(context, OpeningScreen.class);

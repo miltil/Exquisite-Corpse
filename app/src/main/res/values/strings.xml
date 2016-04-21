@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Exquisite Corpse</string>
+    <string name="subtitle">Collaborative Drawing Game</string>
+    <string name="new_game">NEW GAME</string>
+
     <string name="one_player">One Player</string>
     <string name="two_players">Two Players</string>
     <string name="three_players">Three Players</string>
@@ -36,8 +39,6 @@
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
     <string name="action_share">Share</string>
-    <string name="action_gallery">Gallery</string>
-    <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Search player names</string>
     <string name="action_pause">Pause game</string>
@@ -71,7 +72,24 @@
         <item>@string/none_label</item>
     </string-array>
 
-    <string name="gallery_title">Gallery</string>
-    <string name="about_title">About</string>
-    <string name="results_title">Results</string>
+    <string name="gallery">Gallery</string>
+    <string name="about">About</string>
+    <string name="results">Results</string>
+    <string name="settings">Settings</string>
+
+    <string name="black">Black</string>
+    <string name="red">Red</string>
+    <string name="pink">Pink</string>
+    <string name="orange">Orange</string>
+    <string name="yellow">Yellow</string>
+    <string name="green">Green</string>
+    <string name="teal">Teal</string>
+    <string name="blue">Blue</string>
+    <string name="light_blue">Light Blue</string>
+    <string name="purple">Purple</string>
+    <string name="brown">Black</string>
+    <string name="gray">Gray</string>
+    <string name="white">White</string>
+    <string name="undo">Undo</string>
+    <string name="done">Done</string>
 </resources>

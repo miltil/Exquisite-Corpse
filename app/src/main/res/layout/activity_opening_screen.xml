@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/maintitle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/main_title_width"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/maintitle"/>
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/maintitle"
+        android:contentDescription="@string/app_name"/>
 
     <TextView
         android:id="@+id/subtitle"
@@ -21,7 +22,7 @@
         android:layout_below="@id/maintitle"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:text="Collaborative Drawing Game"/>
+        android:text="@string/subtitle"/>
 
     <Button
         android:id="@+id/newgame"
@@ -33,26 +34,30 @@
         android:textSize="30sp"
         android:layout_marginTop="36dp"
         style="?android:attr/borderlessButtonStyle"
-        android:text="NEW GAME"/>
+        android:text="@string/new_game"/>
 
 
     <ImageButton
-    android:id="@+id/settingsbutton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentBottom="true"
-    style="?android:attr/borderlessButtonStyle"
-    android:background="@drawable/settingsgrave"/>
+        android:id="@+id/settingsbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="@drawable/settingsgrave"
+        android:contentDescription="@string/settings"/>
 
     <ImageButton
         android:id="@+id/gallerybutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         style="?android:attr/borderlessButtonStyle"
-        android:background="@drawable/gallerygrave"/>
+        android:background="@drawable/gallerygrave"
+        android:contentDescription="@string/gallery"/>
 
     <ImageButton
         android:id="@+id/aboutbutton"
@@ -61,7 +66,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         style="?android:attr/borderlessButtonStyle"
-        android:background="@drawable/aboutgrave"/>
+        android:background="@drawable/aboutgrave"
+        android:contentDescription="@string/about"/>
 
 
 </RelativeLayout>

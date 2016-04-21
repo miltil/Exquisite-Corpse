@@ -19,12 +19,26 @@
             />
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/widget_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/colorPrimaryLighter"
-        android:padding="12dp"/>
+        >
+
+        <ImageView
+            android:id="@+id/widget_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"/>
+
+        <TextView
+            android:id="@+id/no_image_available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"/>
+
+    </FrameLayout>
 
 
 </LinearLayout>

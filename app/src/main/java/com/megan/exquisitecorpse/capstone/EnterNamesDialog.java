@@ -226,6 +226,10 @@ public class EnterNamesDialog extends DialogFragment {
                         editor.putString("playerNames", playerNamesString);
                         editor.commit();
 
+                        //If the players select skip, the program should not store any artists.
+                        editor.remove("playerNameAssociations");
+                        editor.commit();
+
                         //Add an intent extra to start the game
                         Intent intent = new Intent(getContext(), SheetOfPaper.class);
                         intent.putExtra("lastFlag", false);

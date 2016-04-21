@@ -10,7 +10,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
-        getSupportActionBar().setTitle(R.string.about_title);
+        getSupportActionBar().setTitle(R.string.about);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

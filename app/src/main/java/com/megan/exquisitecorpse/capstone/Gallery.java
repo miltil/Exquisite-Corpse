@@ -8,13 +8,16 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +30,7 @@ public class Gallery extends AppCompatActivity {
     private FloatingActionButton fab;
     private GridView gridView;
     private GalleryAdapter galleryAdapter;
+    private TextView errorMessage;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,7 +43,8 @@ public class Gallery extends AppCompatActivity {
                 (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
-
+        searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+       // searchView.setSuggestionsAdapter();
         return true;
     }
 
@@ -63,7 +68,7 @@ public class Gallery extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery);
-        getSupportActionBar().setTitle(R.string.gallery_title);
+        getSupportActionBar().setTitle(R.string.gallery);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -73,6 +78,8 @@ public class Gallery extends AppCompatActivity {
                 playerPicker.show(getSupportFragmentManager(), "HI");
             }
         });
+
+        errorMessage = (TextView)findViewById(R.id.error_message);
 
         galleryAdapter = new GalleryAdapter(this, new ArrayList<GalleryPicture>());
         gridView = (GridView)findViewById(R.id.grid);
@@ -95,6 +102,10 @@ public class Gallery extends AppCompatActivity {
 
         for(int i = 0; i < galleryPictures.size(); i++) {
             galleryAdapter.add((GalleryPicture)galleryPictures.get(i));
+        }
+
+        if(galleryPictures.size() == 0){
+            errorMessage.setText("You haven't created any drawings yet.");
         }
 
     }

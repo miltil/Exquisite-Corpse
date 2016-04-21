@@ -62,7 +62,7 @@ public class PictureViewer extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(R.string.gallery_title);
+        getSupportActionBar().setTitle(R.string.gallery);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.picture_viewer);
 

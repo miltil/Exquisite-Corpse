@@ -58,7 +58,7 @@ public class SheetOfPaper extends AppCompatActivity {
     private NameAssociation nameAssociation;
     private long pictureId;
     private String playerNamesString;
-    private List<String> playerNames;
+    private List<String> playerNames = null;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -168,8 +168,8 @@ public class SheetOfPaper extends AppCompatActivity {
                 }
             });
 
-            playerNamesString = preferences.getString("playerNameAssociations", "Testing");
-            if(playerNamesString != null){
+            playerNamesString = preferences.getString("playerNameAssociations", "");
+            if(!playerNamesString.equals("")){
                 playerNames = new LinkedList<>(Arrays.asList(playerNamesString.split(",")));
             }
 
@@ -273,12 +273,14 @@ public class SheetOfPaper extends AppCompatActivity {
     }
 
     public void associateNames(long pictureId){
-        for(int i = 0; i < playerNames.size(); i++) {
-            nameAssociation = new NameAssociation();
-            String player = playerNames.get(i);
-            nameAssociation.artistName = player.toUpperCase();
-            nameAssociation.drawingId = pictureId;
-            nameAssociation.save();
+        if(playerNames != null) {
+            for (int i = 0; i < playerNames.size(); i++) {
+                nameAssociation = new NameAssociation();
+                String player = playerNames.get(i);
+                nameAssociation.artistName = player.toUpperCase();
+                nameAssociation.drawingId = pictureId;
+                nameAssociation.save();
+            }
         }
     }
 

@@ -147,8 +147,6 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
         });
 
         lineThickness = (ImageView) findViewById(R.id.lineThickness);
-        lineThickness.setImageResource(R.drawable.linethickness);
-        lineThickness.setScaleType(ImageView.ScaleType.FIT_XY);
 
         lineWidthAdjust = (SeekBar)findViewById(R.id.lineWidthAdjust);
         lineWidthAdjust.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
