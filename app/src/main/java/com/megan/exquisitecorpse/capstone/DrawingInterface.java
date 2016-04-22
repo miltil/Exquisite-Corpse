@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -29,10 +30,10 @@ import me.panavtec.drawableview.DrawableViewConfig;
 public class DrawingInterface extends AppCompatActivity implements DialogInterface.OnCancelListener {
 
     private TextView timerView;
-    private ImageButton undoButton;
-    private ImageButton doneButton;
+    private Button undoButton;
+    private Button doneButton;
     private ImageButton black, red, pink, orange, yellow, green, teal, blue, light_blue,
-            purple, brown, gray, white;
+            purple, lavender, brown, gray, white;
     private TextView titleText;
     private String currentSegment = "next segment!";
     private String currentPlayer;
@@ -52,6 +53,12 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
     private int rawTime;
     private int pausedTime;
     private String polishedTime;
+    static final String TIMER_REMAINING = "timerRemaining";
+    static final String CURRENT_COLOR = "currentColor";
+    static final String CURRENT_WIDTH = "currentWidth";
+    private int timerRemaining = 30000;
+    private int currentColor;
+    private float currentWidth;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,7 +124,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
         configureDrawView();
         setColorButtons();
 
-        undoButton = (ImageButton)findViewById(R.id.undo_button);
+        undoButton = (Button)findViewById(R.id.undo_button);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +132,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
             }
         });
 
-        doneButton = (ImageButton)findViewById(R.id.done_button);
+        doneButton = (Button)findViewById(R.id.done_button);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,9 +177,12 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
 
         timerView = (TextView)findViewById(R.id.timer_view);
 
-        if (timeLimit != 0) {
-
+        if (timeLimit != 0 && savedInstanceState == null) {
             setTimer(timeLimit);
+        }
+
+        else if(timeLimit != 0 && savedInstanceState != null){
+            timerFlag = true;
         }
 
         else{
@@ -210,7 +220,13 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
                             TimeUnit.MILLISECONDS.toSeconds(rawTime)
                     );
                 }
-                timerView.setText(polishedTime);
+                if(rawTime > 6000){
+                    timerView.setText(polishedTime);
+                }
+                else{
+                    timerView.setTextColor(getResources().getColor(R.color.red));
+                    timerView.setText(polishedTime);
+                }
             }
 
             public void onFinish() {
@@ -313,6 +329,14 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
             }
         });
 
+        lavender = (ImageButton)findViewById(R.id.lavender);
+        lavender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                config.setStrokeColor(Color.argb(255, 209, 26, 255));
+            }
+        });
+
         brown = (ImageButton)findViewById(R.id.brown);
         brown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,7 +349,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
         gray.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                config.setStrokeColor(Color.argb(255, 194, 194, 163));
+                config.setStrokeColor(Color.argb(255, 192, 192, 192));
             }
         });
 
@@ -366,6 +390,40 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
         if(timerFlag) {
             setTimer(pausedTime);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        if(timerFlag) {
+            timerRemaining = rawTime;
+            timer.cancel();
+            savedInstanceState.putInt(TIMER_REMAINING, timerRemaining);
+        }
+        currentColor = config.getStrokeColor();
+        savedInstanceState.putInt(CURRENT_COLOR, currentColor);
+        currentWidth = config.getStrokeWidth();
+        savedInstanceState.putFloat(CURRENT_WIDTH, currentWidth);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if(timerFlag) {
+            timerRemaining = savedInstanceState.getInt(TIMER_REMAINING);
+            setTimer(timerRemaining);
+        }
+        currentColor = savedInstanceState.getInt(CURRENT_COLOR);
+        config.setStrokeColor(currentColor);
+        currentWidth = savedInstanceState.getFloat(CURRENT_WIDTH);
+        config.setStrokeWidth(currentWidth);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 
 }

@@ -22,12 +22,11 @@ public class PictureViewer extends AppCompatActivity {
 
     ImageView corpseHolder;
     GalleryPicture galleryPicture;
-    FloatingActionButton fab;
     TextView artistHolder;
     List nameAssociationList;
     long picID;
     ArrayList<String> artistList;
-    String artistListString = "This corpse brought to you by ";
+    String artistListString;
     NameAssociation nameAssociation;
     private String artistString;
 
@@ -67,9 +66,9 @@ public class PictureViewer extends AppCompatActivity {
         setContentView(R.layout.picture_viewer);
 
         corpseHolder = (ImageView)findViewById(R.id.corpse_holder);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
         artistHolder = (TextView) findViewById(R.id.artists_holder);
 
+        artistListString = getResources().getString(R.string.by) + " ";
 
         picID = getIntent().getLongExtra("picID", 1);
         galleryPicture = (new Select()
@@ -83,12 +82,6 @@ public class PictureViewer extends AppCompatActivity {
 
         getArtists();
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                NoPlayerPicker playerPicker = new NoPlayerPicker();
-                playerPicker.show(getSupportFragmentManager(), "HI");
-            }
-        });
     }
 
     public void getArtists(){

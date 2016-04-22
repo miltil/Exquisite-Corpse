@@ -100,6 +100,14 @@
                 android:contentDescription="@string/purple"/>
 
             <ImageButton
+                android:id="@+id/lavender"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/lavendersplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/lavender"/>
+
+            <ImageButton
                 android:id="@+id/brown"
                 android:layout_width="@dimen/paint_button_size"
                 android:layout_height="@dimen/paint_button_size"
@@ -156,6 +164,7 @@
             android:layout_width="300dp"
             android:layout_height="225dp"
             android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
             android:layout_gravity="center"/>
 
 
@@ -165,16 +174,18 @@
             android:orientation="vertical"
             android:layout_gravity="center_vertical">
 
-            <ImageButton
+            <Button
                 android:id="@+id/undo_button"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:background="@drawable/undo2"
                 android:layout_marginBottom="18dp"
                 style="?android:attr/borderlessButtonStyle"
                 android:contentDescription="@string/undo"
+                android:text="@string/undo"
                 android:layout_gravity="center_horizontal"
+                android:textSize="24sp"
+                android:drawableLeft="@drawable/undo"
                 />
 
 
@@ -188,16 +199,18 @@
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"/>
 
-            <ImageButton
+            <Button
                 android:id="@+id/done_button"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:background="@drawable/done"
                 android:layout_marginBottom="18dp"
                 style="?android:attr/borderlessButtonStyle"
                 android:contentDescription="@string/done"
-                android:layout_gravity="center_horizontal"/>
+                android:text="@string/done"
+                android:layout_gravity="center_horizontal"
+                android:textSize="24sp"
+                android:drawableLeft="@drawable/done"/>
 
         </LinearLayout>
 

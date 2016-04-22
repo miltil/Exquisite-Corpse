@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/artists_holder"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:textSize="18sp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,21 +24,10 @@
             android:id="@+id/corpse_holder"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="12dp"
-            android:layout_width="295dp"
-            android:layout_height="490dp"/>
-
+            android:layout_width="150dp"
+            android:layout_height="250dp"/>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/artists_holder"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginBottom="12dp"
-        android:textSize="20sp"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>

@@ -32,6 +32,7 @@
     <string name="feet"> the feet</string>
     <string name="to_draw"> to draw the</string>
     <string name="draw_the">Draw the</string>
+    <string name="by">By</string>
 
     <string name="delete_warning">Do you want to discard the current game? </string>
     <string name="discard">Discard</string>
@@ -87,6 +88,7 @@
     <string name="blue">Blue</string>
     <string name="light_blue">Light Blue</string>
     <string name="purple">Purple</string>
+    <string name="lavender">Lavender</string>
     <string name="brown">Black</string>
     <string name="gray">Gray</string>
     <string name="white">White</string>

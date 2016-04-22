@@ -10,123 +10,130 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <HorizontalScrollView
+
+        <GridLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:columnCount="7"
+            android:rowCount="2"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="24dp">
+            <ImageButton
+                android:id="@+id/black"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/blacksplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/black"/>
 
-                <ImageButton
-                    android:id="@+id/black"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/blacksplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/black"/>
+            <ImageButton
+                android:id="@+id/red"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/redsplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/red"/>
 
-                <ImageButton
-                    android:id="@+id/red"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/redsplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/red"/>
+            <ImageButton
+                android:id="@+id/pink"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/pinksplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/pink"/>
 
-                <ImageButton
-                    android:id="@+id/pink"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/pinksplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/pink"/>
+            <ImageButton
+                android:id="@+id/orange"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/orangesplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/orange"/>
 
-                <ImageButton
-                    android:id="@+id/orange"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/orangesplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/orange"/>
+            <ImageButton
+                android:id="@+id/yellow"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/yellowsplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/yellow"/>
 
-                <ImageButton
-                    android:id="@+id/yellow"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/yellowsplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/yellow"/>
+            <ImageButton
+                android:id="@+id/green"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/greensplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/green"/>
 
-                <ImageButton
-                    android:id="@+id/green"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/greensplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/green"/>
+            <ImageButton
+                android:id="@+id/teal"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/tealsplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/teal"/>
 
-                <ImageButton
-                    android:id="@+id/teal"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/tealsplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/teal"/>
+            <ImageButton
+                android:id="@+id/blue"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/bluesplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/blue"/>
 
-                <ImageButton
-                    android:id="@+id/blue"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/bluesplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/blue"/>
+            <ImageButton
+                android:id="@+id/light_blue"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/lightbluesplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/light_blue"/>
 
-                <ImageButton
-                    android:id="@+id/light_blue"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/lightbluesplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/light_blue"/>
+            <ImageButton
+                android:id="@+id/purple"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/purplesplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/purple"/>
 
-                <ImageButton
-                    android:id="@+id/purple"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/purplesplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/purple"/>
+            <ImageButton
+                android:id="@+id/lavender"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/lavendersplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/lavender"/>
 
-                <ImageButton
-                    android:id="@+id/brown"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/brownsplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/brown"/>
+            <ImageButton
+                android:id="@+id/brown"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/brownsplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/brown"/>
 
-                <ImageButton
-                    android:id="@+id/gray"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/greysplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/gray"/>
+            <ImageButton
+                android:id="@+id/gray"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/greysplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/gray"/>
 
-                <ImageButton
-                    android:id="@+id/white"
-                    android:layout_width="@dimen/paint_button_size"
-                    android:layout_height="@dimen/paint_button_size"
-                    android:src="@drawable/whitesplatter"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/white"/>
+            <ImageButton
+                android:id="@+id/white"
+                android:layout_width="@dimen/paint_button_size"
+                android:layout_height="@dimen/paint_button_size"
+                android:src="@drawable/whitesplatter"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/white"/>
 
-            </LinearLayout>
+        </GridLayout>
 
-        </HorizontalScrollView>
 
         <ImageView
             android:id="@+id/lineThickness"
@@ -153,7 +160,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_width="300dp"
             android:layout_height="225dp"
-            android:layout_marginTop="62dp"
+            android:layout_marginTop="40dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"/>
 
@@ -161,44 +168,48 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/undo_button"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        >
-
-        <ImageButton
-            android:id="@+id/undo_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/undo2"
-            android:layout_marginBottom="18dp"
-            style="?android:attr/borderlessButtonStyle"
-            android:contentDescription="@string/undo"
-            />
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:contentDescription="@string/undo"
+        android:text="@string/undo"
+        android:textSize="24sp"
+        android:drawableLeft="@drawable/undo"
+        />
 
 
-        <TextView
-            android:id="@+id/timer_view"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:layout_marginBottom="18dp"
-            android:gravity="center"/>
+    <TextView
+        android:id="@+id/timer_view"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="32sp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"/>
 
-        <ImageButton
-            android:id="@+id/done_button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/done"
-            android:layout_marginBottom="18dp"
-            style="?android:attr/borderlessButtonStyle"
-            android:contentDescription="@string/done"/>
+    <Button
+        android:id="@+id/done_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="?android:attr/borderlessButtonStyle"
+        android:contentDescription="@string/done"
+        android:text="@string/done"
+        android:textSize="24sp"
+        android:drawableLeft="@drawable/done"/>
 
-    </LinearLayout>
 
 </RelativeLayout>
