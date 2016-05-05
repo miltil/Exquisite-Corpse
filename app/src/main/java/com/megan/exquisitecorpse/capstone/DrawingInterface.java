@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -59,6 +60,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
     private int timerRemaining = 30000;
     private int currentColor;
     private float currentWidth;
+    private int numPlayers;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,6 +122,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
         zoomable = preferences.getBoolean("zoom", true);
         timeLimitString = preferences.getString("timer", "30");
         timeLimit = Integer.parseInt(timeLimitString) * 1000;
+        numPlayers = preferences.getInt("numPlayers", 3);
 
         configureDrawView();
         setColorButtons();
@@ -383,6 +386,11 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
         drawableView.setConfig(config);
 
         drawableView.setBackgroundColor(getResources().getColor(R.color.white));
+
+     /*   if(numPlayers == 2 || numPlayers == 4) {
+            int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125, getResources().getDisplayMetrics());
+            drawableView.getLayoutParams().height = height;
+        } */
     }
 
     @Override

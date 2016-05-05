@@ -40,7 +40,6 @@ public class EnterNamesDialog extends DialogFragment {
         artistsArrayList = new ArrayList<>();
         List artistList = new Select()
                 .from(Artists.class)
-                .orderBy("ID DESC")
                 .execute();
         for(int i = 0; i < artistList.size(); i++) {
             Artists artist = (Artists)artistList.get(i);

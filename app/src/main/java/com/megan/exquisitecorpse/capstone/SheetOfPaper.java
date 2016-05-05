@@ -141,7 +141,8 @@ public class SheetOfPaper extends AppCompatActivity {
 
         fab.hide();
 
-        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 135, getResources().getDisplayMetrics());
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125, getResources().getDisplayMetrics());
+        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 190, getResources().getDisplayMetrics());
 
         Intent intent = getIntent();
         lastFlag = intent.getBooleanExtra("lastFlag", false);
@@ -177,15 +178,19 @@ public class SheetOfPaper extends AppCompatActivity {
                 headBitmap = getPic("head");
                 headHolder.setImageBitmap(headBitmap);
                 headHolder.getLayoutParams().height = height;
+                headHolder.getLayoutParams().width = width;
                 upperTorsoBitmap = getPic("upper torso");
                 upperTorsoHolder.setImageBitmap(upperTorsoBitmap);
                 upperTorsoHolder.getLayoutParams().height = height;
+                upperTorsoHolder.getLayoutParams().width = width;
                 torsoBitmap = getPic("lower torso");
                 torsoHolder.setImageBitmap(torsoBitmap);
                 torsoHolder.getLayoutParams().height = height;
+                torsoHolder.getLayoutParams().width = width;
                 legsBitmap = getPic("legs");
                 legHolder.setImageBitmap(legsBitmap);
                 legHolder.getLayoutParams().height = height;
+                legHolder.getLayoutParams().width = width;
                 parts = new Bitmap[4];
                 parts[0] = headBitmap;
                 parts[1] = upperTorsoBitmap;
@@ -227,7 +232,7 @@ public class SheetOfPaper extends AppCompatActivity {
         picture = new Select()
                 .from(Picture.class)
                 .where("Segment = ?", segment)
-                .orderBy("ID ASC")
+                .orderBy("ID DESC")
                 .executeSingle();
         bytePicture = picture.drawing;
         Bitmap bitmapPicture = Utility.getImage(bytePicture);
@@ -252,9 +257,6 @@ public class SheetOfPaper extends AppCompatActivity {
         Bitmap result = Bitmap.createBitmap(parts[0].getWidth(), parts[0].getHeight() * parts.length, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
-        /*for (int i = 0; i < parts.length; i++) {
-            canvas.drawBitmap(parts[i], parts[i].getWidth() * (i % 2), parts[i].getHeight() * (i / 2), paint);
-        } */
 
         if(numPlayers == 3){
             canvas.drawBitmap(parts[0], 0, 0, null);
@@ -277,7 +279,7 @@ public class SheetOfPaper extends AppCompatActivity {
             for (int i = 0; i < playerNames.size(); i++) {
                 nameAssociation = new NameAssociation();
                 String player = playerNames.get(i);
-                nameAssociation.artistName = player.toUpperCase();
+                nameAssociation.artistName = player;
                 nameAssociation.drawingId = pictureId;
                 nameAssociation.save();
             }

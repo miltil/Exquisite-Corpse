@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="ga_trackingId">UA-77369596-1</string>
+    <string name="ga_autoActivityTracking">true</string>
+
+    <screenName name="com.megan.exquisitecorpse.capstone.OpeningScreen">Opening Screen</screenName>
+    <screenName name="com.megan.exquisitecorpse.capstone.DrawingInterface">Drawing Interface</screenName>
+    <screenName name="com.megan.exquisitecorpse.capstone.Gallery">Gallery</screenName>
+    <screenName name="com.megan.exquisitecorpse.capstone.SettingsActivity">Settings</screenName>
+    <screenName name="com.megan.exquisitecorpse.capstone.SheetOfPaper">Sheet Of Paper</screenName>
+    <screenName name="com.megan.exquisitecorpse.capstone.PictureViewer">Picture Viewer</screenName>
+    <screenName name="com.megan.exquisitecorpse.capstone.AboutActivity">About</screenName>
+
+</resources>

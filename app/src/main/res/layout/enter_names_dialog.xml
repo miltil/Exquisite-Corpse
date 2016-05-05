@@ -5,7 +5,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/name1"
-        android:inputType="textCapSentences"
+        android:inputType="textCapWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -16,7 +16,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/name2"
-        android:inputType="textCapSentences"
+        android:inputType="textCapWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -27,7 +27,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/name3"
-        android:inputType="textCapSentences"
+        android:inputType="textCapWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -38,7 +38,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/name4"
-        android:inputType="textCapSentences"
+        android:inputType="textCapWords"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

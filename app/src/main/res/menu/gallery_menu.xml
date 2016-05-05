@@ -6,6 +6,7 @@
         android:title="@string/action_search"
         android:icon="@drawable/search"
         app:showAsAction="collapseActionView|ifRoom"
+        android:searchSuggestThreshold="2"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
     <item android:id="@+id/action_settings"

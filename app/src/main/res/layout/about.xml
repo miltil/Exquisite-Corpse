@@ -1,11 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
 
-    <TextView
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is the about page!"/>
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:layout_marginTop="12dp"
+                android:text="Exquisite Corpse"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="12dp"
+                android:text="In 1925, French surrealists created the collaborative drawing game Exquisite Corpse. The game is played by folding a sheet of paper into sections, and having each section drawn on by a different person. The result is a completed work of art incorporating the unique ideas and art styles of each of the players."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp"
+                android:text="This game is now played by many people, and is fun even without any artistic ability. In the modern version, the sheet is divided into sections of a body; for instance, the head, the torso, and the legs. One person draws each of these segments, and everyone laughs at the mismatch of body parts and the bizarre creature that has been drawn."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp"
+                android:text="Now, this game is available as an app. You can play it without any drawing supplies, and you are able to save the results of your games in a gallery."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:layout_marginTop="24dp"
+                android:text="How to Play:"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="12dp"
+                android:text="Pick the number of players. Exquisite Corpse is recommended to be played with three players, but you can play with 1 to 4."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp"
+                android:text="Optionally, enter the names of the players. If you choose to enter the player names, the device will tell you who to pass to next, and it will store each person's name with the drawings they contributed to. If you later want to see all the pictures you contributed to, just search in the gallery for your name."/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp"
+                android:text="Draw the section of the body the device prompts you to draw, but don't show anyone else! Be creative! You can draw a person, any animal, mythical creatures, household objects, abstract shapes, or anything else that you think would work as that body section!"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp"
+                android:text="View your completed creation with your team. If you don't like it, you can delete it and try again. But if you do like it, you can save it in the gallery with all your other favorites!"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:text="Have fun!"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

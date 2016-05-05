@@ -93,20 +93,17 @@ public class PictureViewer extends AppCompatActivity {
         if(nameAssociationList != null && nameAssociationList.size() > 1){
             for(int i = 0; i < nameAssociationList.size() - 1; i++) {
                 nameAssociation = (NameAssociation) nameAssociationList.get(i);
-                artistString = (nameAssociation.artistName).substring(0,1) +
-                        (nameAssociation.artistName).substring(1).toLowerCase();
+                artistString = nameAssociation.artistName;
                 artistListString = artistListString.concat(artistString + ", ");
             }
             nameAssociation = (NameAssociation) nameAssociationList.get(nameAssociationList.size() - 1);
-            artistString = (nameAssociation.artistName).substring(0,1) +
-                    (nameAssociation.artistName).substring(1).toLowerCase();
+            artistString = nameAssociation.artistName;
             artistListString = artistListString.concat("and " + artistString);
             artistHolder.setText(artistListString);
         }
         else if(nameAssociationList.size() == 1){
             nameAssociation = (NameAssociation) nameAssociationList.get(0);
-            artistString = (nameAssociation.artistName).substring(0,1) +
-                    (nameAssociation.artistName).substring(1).toLowerCase();
+            artistString = nameAssociation.artistName;
             artistListString = artistListString.concat(artistString);
             artistHolder.setText(artistListString);
         }

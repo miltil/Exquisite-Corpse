@@ -3,6 +3,8 @@ package com.megan.exquisitecorpse.capstone;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Select;
+import com.activeandroid.util.SQLiteUtils;
 
 import org.w3c.dom.Text;
 
@@ -77,49 +80,20 @@ public class Searchable extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             query = query.toUpperCase();
+            search(query);
+        }
 
-            nameAssociationList = new Select()
-                    .from(NameAssociation.class)
-                    .where("ArtistName = ?", query)
-                    .orderBy("ID DESC")
-                    .execute();
+        else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            Toast.makeText(Searchable.this, "Whazzup", Toast.LENGTH_SHORT).show();
+            String query = intent.getStringExtra("query");
+            query = query.toUpperCase();
+            search(query);
+        }
 
-            if(nameAssociationList == null){
-                emptyMessage = "No name association list---";
-            }
-            else {
-                for (int i = 0; i < nameAssociationList.size(); i++) {
-                    NameAssociation nameAssociation = (NameAssociation) nameAssociationList.get(i);
-                    idList.add(nameAssociation.drawingId);
-                }
-            }
-
-            if(idList == null){
-                emptyMessage = emptyMessage.concat("No ID list----");
-            }
-            else {
-                for (int i = 0; i < idList.size(); i++) {
-                    id = (long) idList.get(i);
-                    searchedDrawings = (new Select()
-                            .from(GalleryPicture.class)
-                            .where("Id = ?", id)
-                            .executeSingle());
-                    searchedDrawingsArrayList.add(searchedDrawings);
-                }
-            }
-
-            if(searchedDrawingsArrayList == null){
-                emptyMessage = emptyMessage.concat("No Searched Drawings List---");
-            }
-            else if(searchedDrawingsArrayList.isEmpty()){
-                errorMessage.setText("Sorry, no items match your search.");
-            }
-            else {
-                for (int i = 0; i < searchedDrawingsArrayList.size(); i++) {
-                    galleryAdapter.add((GalleryPicture) searchedDrawingsArrayList.get(i));
-                }
-            }
-
+        else{
+            String query = intent.getStringExtra("query");
+            query = query.toUpperCase();
+            search(query);
         }
     }
 
@@ -128,6 +102,38 @@ public class Searchable extends AppCompatActivity {
         Intent intent = new Intent(this, Gallery.class);
         startActivity(intent);
         return;
+    }
+
+    public void search(String query){
+        nameAssociationList = SQLiteUtils.rawQuery(NameAssociation.class,
+                "SELECT *  FROM NameAssociation WHERE UPPER(ArtistName) = ?", new String[] {query});
+
+        if(nameAssociationList != null) {
+            for (int i = 0; i < nameAssociationList.size(); i++) {
+                NameAssociation nameAssociation = (NameAssociation) nameAssociationList.get(i);
+                idList.add(nameAssociation.drawingId);
+            }
+        }
+
+        if(idList != null) {
+            for (int i = 0; i < idList.size(); i++) {
+                id = (long) idList.get(i);
+                searchedDrawings = (new Select()
+                        .from(GalleryPicture.class)
+                        .where("Id = ?", id)
+                        .executeSingle());
+                searchedDrawingsArrayList.add(searchedDrawings);
+            }
+        }
+
+        if(searchedDrawingsArrayList.isEmpty()){
+            errorMessage.setText("Sorry, no items match your search.");
+        }
+        else {
+            for (int i = 0; i < searchedDrawingsArrayList.size(); i++) {
+                galleryAdapter.add((GalleryPicture) searchedDrawingsArrayList.get(i));
+            }
+        }
     }
 
 }
