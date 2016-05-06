@@ -23,6 +23,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.util.concurrent.TimeUnit;
 
 import me.panavtec.drawableview.DrawableView;
@@ -61,6 +65,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
     private int currentColor;
     private float currentWidth;
     private int numPlayers;
+    InterstitialAd mInterstitialAd;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,6 +116,20 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.drawing_interface);
 
+        //Load ad
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+                Intent intent = new Intent(DrawingInterface.this, SheetOfPaper.class);
+                intent.putExtra("lastFlag", lastFlag);
+                startActivity(intent);
+            }
+        });
+        requestNewInterstitial();
+
         Intent intent = getIntent();
         currentSegment = intent.getStringExtra("currentSegment");
         currentPlayer = intent.getStringExtra("currentPlayer");
@@ -150,9 +169,13 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
                 picture.drawing = byteArrayImage;
                 picture.save();
 
-                Intent intent = new Intent(DrawingInterface.this, SheetOfPaper.class);
-                intent.putExtra("lastFlag", lastFlag);
-                startActivity(intent);
+                if (mInterstitialAd.isLoaded() && lastFlag) {
+                    mInterstitialAd.show();
+                } else {
+                    Intent intent = new Intent(DrawingInterface.this, SheetOfPaper.class);
+                    intent.putExtra("lastFlag", lastFlag);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -432,6 +455,14 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
     public void onDestroy() {
         super.onDestroy();
 
+    }
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("SEE_YOUR_LOGCAT_TO_GET_YOUR_DEVICE_ID")
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
     }
 
 }

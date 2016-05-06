@@ -33,7 +33,7 @@ public class OpeningScreen extends AppCompatActivity {
         setContentView(R.layout.activity_opening_screen);
         getSupportActionBar().hide();
 
-  //      ((MyApplication) getApplication()).startTracking();
+        ((MyApplication) getApplication()).startTracking();
 
         startGameButton = (Button)findViewById(R.id.newgame);
         startGameButton.setOnClickListener(new View.OnClickListener() {

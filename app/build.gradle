@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -33,5 +32,8 @@ dependencies {
     compile 'me.panavtec:drawableview:0.6.0'
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:0.6.0'
-    compile 'com.google.android.gms:play-services-analytics:8.3.0'
+    compile 'com.google.android.gms:play-services-analytics:8.4.0'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
