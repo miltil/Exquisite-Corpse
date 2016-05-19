@@ -33,13 +33,13 @@ License
     This app uses the following open-source libraries:
     
     Android Drawable View
-        https://github.com/PaNaVTEC/DrawableView
+    https://github.com/PaNaVTEC/DrawableView
     Licensed under the Apache License, Version 2.0
     
     Active Android
-        https://github.com/pardom/ActiveAndroid
+    https://github.com/pardom/ActiveAndroid
     Licensed under the Apache License, Version 2.0
     
     Android Vertical SeekBar
-        https://github.com/h6ah4i/android-verticalseekbar
+    https://github.com/h6ah4i/android-verticalseekbar
     Licensed under the Apache License, Version 2.0
