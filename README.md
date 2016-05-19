@@ -29,3 +29,14 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+    
+    This app uses the following open-source libraries:
+    
+    <a href="https://github.com/PaNaVTEC/DrawableView">Android Drawable View</a>
+    Licensed under the Apache License, Version 2.0
+    
+    <a href="https://github.com/pardom/ActiveAndroid">Active Android</a>
+    Licensed under the Apache License, Version 2.0
+    
+    <a href="https://github.com/h6ah4i/android-verticalseekbar">Android Vertical SeekBar</a>
+    Licensed under the Apache License, Version 2.0
