@@ -45,6 +45,7 @@
 
         android:id="@+id/fab"
         android:src="@drawable/add"
+        android:contentDescription="@string/fab"
 
         android:layout_gravity="bottom|end"
         android:layout_width="wrap_content"

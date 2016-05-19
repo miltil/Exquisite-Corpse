@@ -1,20 +1,14 @@
 package com.megan.exquisitecorpse.capstone;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -22,9 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.query.Delete;
@@ -33,31 +25,21 @@ import com.activeandroid.query.Select;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class SheetOfPaper extends AppCompatActivity {
 
-    private boolean lastFlag;
     private ImageView headHolder;
     private ImageView upperTorsoHolder;
     private ImageView torsoHolder;
     private ImageView legHolder;
-    private int numPlayers;
-    private FloatingActionButton fab;
     private boolean saveFlag = false;
     private boolean deleteFlag = false;
-    private Picture picture;
-    private byte[] bytePicture;
     private Bitmap headBitmap;
     private Bitmap upperTorsoBitmap;
     private Bitmap torsoBitmap;
     private Bitmap legsBitmap;
     private Bitmap[] parts;
-    private Bitmap fullBitmap;
-    private byte[] fullByteArray;
-    private GalleryPicture fullPicture;
-    private NameAssociation nameAssociation;
-    private long pictureId;
-    private String playerNamesString;
     private List<String> playerNames = null;
 
     @Override
@@ -71,7 +53,7 @@ public class SheetOfPaper extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if(deleteFlag == false && saveFlag == false) {
+                if(!deleteFlag && !saveFlag) {
                     GameInterrupt gameInterrupt = GameInterrupt.newInstance("home");
                     gameInterrupt.show(getSupportFragmentManager(), "HI");
                 }
@@ -81,17 +63,17 @@ public class SheetOfPaper extends AppCompatActivity {
                 }
                 return true;
             case R.id.action_save:
-                if(deleteFlag == false && saveFlag == false) {
+                if(!deleteFlag && !saveFlag) {
                     SaveTask saveTask = new SaveTask();
                     saveTask.execute();
                     Toast.makeText(SheetOfPaper.this, "Your corpse was saved to the gallery", Toast.LENGTH_LONG).show();
                 }
-                else if(deleteFlag == true) {
+                else if(deleteFlag) {
                     Toast.makeText(this, "Sorry, your corpse was deleted!", Toast.LENGTH_LONG).show();
                 }
                 return true;
             case R.id.action_delete:
-                if(deleteFlag == false && saveFlag == false) {
+                if(!deleteFlag && !saveFlag) {
                     Toast.makeText(this, "Your corpse was deleted", Toast.LENGTH_LONG).show();
                     headHolder.setVisibility(View.GONE);
                     upperTorsoHolder.setVisibility(View.GONE);
@@ -102,7 +84,7 @@ public class SheetOfPaper extends AppCompatActivity {
                 }
                 return true;
             case R.id.action_gallery:
-                if (saveFlag == false && deleteFlag == false) {
+                if (!saveFlag && !deleteFlag) {
                     GameInterrupt gameInterrupt = GameInterrupt.newInstance("gallery");
                     gameInterrupt.show(getSupportFragmentManager(), "HI");
                 } else {
@@ -111,7 +93,7 @@ public class SheetOfPaper extends AppCompatActivity {
                 }
                 return true;
             case R.id.action_settings:
-                if (saveFlag == false && deleteFlag == false) {
+                if (!saveFlag && !deleteFlag) {
                     GameInterrupt gameInterrupt = GameInterrupt.newInstance("settings");
                     gameInterrupt.show(getSupportFragmentManager(), "HI");
                 } else {
@@ -126,7 +108,7 @@ public class SheetOfPaper extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        numPlayers = preferences.getInt("numPlayers", 3);
+        int numPlayers = preferences.getInt("numPlayers", 3);
 
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -137,15 +119,15 @@ public class SheetOfPaper extends AppCompatActivity {
         upperTorsoHolder = (ImageView)findViewById(R.id.uppertorso);
         torsoHolder = (ImageView)findViewById(R.id.torso);
         legHolder = (ImageView)findViewById(R.id.legs);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.hide();
 
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125, getResources().getDisplayMetrics());
         int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 190, getResources().getDisplayMetrics());
 
         Intent intent = getIntent();
-        lastFlag = intent.getBooleanExtra("lastFlag", false);
+        boolean lastFlag = intent.getBooleanExtra("lastFlag", false);
 
         if(!lastFlag) {
             //Creating the passing prompt, if the game is still going
@@ -159,7 +141,7 @@ public class SheetOfPaper extends AppCompatActivity {
             fab.show();
             fab.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if (saveFlag == false && deleteFlag == false) {
+                    if (!saveFlag && !deleteFlag) {
                         GameInterrupt gameInterrupt = GameInterrupt.newInstance("new");
                         gameInterrupt.show(getSupportFragmentManager(), "HI");
                     } else {
@@ -169,7 +151,7 @@ public class SheetOfPaper extends AppCompatActivity {
                 }
             });
 
-            playerNamesString = preferences.getString("playerNameAssociations", "");
+            String playerNamesString = preferences.getString("playerNameAssociations", "");
             if(!playerNamesString.equals("")){
                 playerNames = new LinkedList<>(Arrays.asList(playerNamesString.split(",")));
             }
@@ -212,14 +194,74 @@ public class SheetOfPaper extends AppCompatActivity {
             }
 
             else if(numPlayers == 1){
-                headBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                        R.drawable.samplehead);
-                headHolder.setImageBitmap(headBitmap);
-                torsoBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                        R.drawable.sampletorso);
-                torsoHolder.setImageBitmap(torsoBitmap);
-                legsBitmap = getPic("legs");
-                legHolder.setImageBitmap(legsBitmap);
+                String onePlayer = intent.getStringExtra("onePlayer");
+                final Random rndBody = new Random();
+
+                if(onePlayer != null && onePlayer.equals("legs")) {
+                    final String headFile = "head_" + rndBody.nextInt(4);
+                    int headId = getResourceId(headFile, "drawable", getPackageName());
+                    headBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            headId);
+                    headHolder.setImageBitmap(headBitmap);
+
+                    final String torsoFile = "torso_" + rndBody.nextInt(4);
+                    int torsoId = getResourceId(torsoFile, "drawable", getPackageName());
+                    torsoBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            torsoId);
+                    torsoHolder.setImageBitmap(torsoBitmap);
+
+                    legsBitmap = getPic("legs");
+                    legHolder.setImageBitmap(legsBitmap);
+                } else if(onePlayer != null && onePlayer.equals("torso")){
+                    final String headFile = "head_" + rndBody.nextInt(4);
+                    int headId = getResourceId(headFile, "drawable", getPackageName());
+                    headBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            headId);
+                    headHolder.setImageBitmap(headBitmap);
+
+                    torsoBitmap = getPic("torso");
+                    torsoHolder.setImageBitmap(torsoBitmap);
+
+                    final String legFile = "legs_" + rndBody.nextInt(4);
+                    int legId = getResourceId(legFile, "drawable", getPackageName());
+                    legsBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            legId);
+                    legHolder.setImageBitmap(legsBitmap);
+                } else if(onePlayer != null && onePlayer.equals("head")){
+                    headBitmap = getPic("head");
+                    headHolder.setImageBitmap(headBitmap);
+
+                    final String torsoFile = "torso_" + rndBody.nextInt(4);
+                    int torsoId = getResourceId(torsoFile, "drawable", getPackageName());
+                    torsoBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            torsoId);
+                    torsoHolder.setImageBitmap(torsoBitmap);
+
+                    final String legFile = "legs_" + rndBody.nextInt(4);
+                    int legId = getResourceId(legFile, "drawable", getPackageName());
+                    legsBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            legId);
+                    legHolder.setImageBitmap(legsBitmap);
+                } else {
+                    final String headFile = "head_" + rndBody.nextInt(4);
+                    int headId = getResourceId(headFile, "drawable", getPackageName());
+                    headBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            headId);
+                    headHolder.setImageBitmap(headBitmap);
+
+                    final String torsoFile = "torso_" + rndBody.nextInt(4);
+                    int torsoId = getResourceId(torsoFile, "drawable", getPackageName());
+                    torsoBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            torsoId);
+                    torsoHolder.setImageBitmap(torsoBitmap);
+
+                    final String legFile = "legs_" + rndBody.nextInt(4);
+                    int legId = getResourceId(legFile, "drawable", getPackageName());
+                    legsBitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                            legId);
+                    legHolder.setImageBitmap(legsBitmap);
+                }
+
                 parts = new Bitmap[3];
                 parts[0] = headBitmap;
                 parts[1] = torsoBitmap;
@@ -229,19 +271,18 @@ public class SheetOfPaper extends AppCompatActivity {
     }
 
     public Bitmap getPic(String segment){
-        picture = new Select()
+        Picture picture = new Select()
                 .from(Picture.class)
                 .where("Segment = ?", segment)
                 .orderBy("ID DESC")
                 .executeSingle();
-        bytePicture = picture.drawing;
-        Bitmap bitmapPicture = Utility.getImage(bytePicture);
-        return bitmapPicture;
+        byte[] bytePicture = picture.drawing;
+        return Utility.getImage(bytePicture);
     }
 
     @Override
     public void onBackPressed() {
-        if (saveFlag == false && deleteFlag == false) {
+        if (!saveFlag && !deleteFlag) {
             GameInterrupt gameInterrupt = GameInterrupt.newInstance("home");
             gameInterrupt.show(getSupportFragmentManager(), "HI");
         }
@@ -249,14 +290,12 @@ public class SheetOfPaper extends AppCompatActivity {
             Intent intent = new Intent(this, OpeningScreen.class);
             startActivity(intent);
         }
-        return;
     }
 
     public Bitmap combineParts(Bitmap[] parts){
         int numPlayers = parts.length;
         Bitmap result = Bitmap.createBitmap(parts[0].getWidth(), parts[0].getHeight() * parts.length, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
-        Paint paint = new Paint();
 
         if(numPlayers == 3){
             canvas.drawBitmap(parts[0], 0, 0, null);
@@ -277,9 +316,8 @@ public class SheetOfPaper extends AppCompatActivity {
     public void associateNames(long pictureId){
         if(playerNames != null) {
             for (int i = 0; i < playerNames.size(); i++) {
-                nameAssociation = new NameAssociation();
-                String player = playerNames.get(i);
-                nameAssociation.artistName = player;
+                NameAssociation nameAssociation = new NameAssociation();
+                nameAssociation.artistName = playerNames.get(i);
                 nameAssociation.drawingId = pictureId;
                 nameAssociation.save();
             }
@@ -294,20 +332,27 @@ public class SheetOfPaper extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground (Void... params){
-            fullBitmap = combineParts(parts);
-            fullByteArray = Utility.getBytes(fullBitmap);
-            fullPicture = new GalleryPicture();
+            Bitmap fullBitmap = combineParts(parts);
+            byte[] fullByteArray = Utility.getBytes(fullBitmap);
+            GalleryPicture fullPicture = new GalleryPicture();
             fullPicture.full_drawing = fullByteArray;
             fullPicture.save();
-            pictureId = fullPicture.getId();
+            long pictureId = fullPicture.getId();
             associateNames(pictureId);
             saveFlag = true;
             new Delete().from(Picture.class).execute();
             return true;
         }
 
-        protected void onPostExecute() {
-            super.onPostExecute(true);
+    }
+
+    public int getResourceId(String pVariableName, String pResourcename, String pPackageName)
+    {
+        try {
+            return getResources().getIdentifier(pVariableName, pResourcename, pPackageName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
         }
     }
 

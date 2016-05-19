@@ -1,28 +1,15 @@
 package com.megan.exquisitecorpse.capstone;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-
-import java.util.ArrayList;
-import java.util.List;
-import android.support.v4.app.DialogFragment;
 import android.widget.ImageButton;
 
 public class OpeningScreen extends AppCompatActivity {
-
-    private Button startGameButton;
-    private ImageButton settingsButton;
-    private ImageButton galleryButton;
-    private ImageButton aboutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +22,7 @@ public class OpeningScreen extends AppCompatActivity {
 
         ((MyApplication) getApplication()).startTracking();
 
-        startGameButton = (Button)findViewById(R.id.newgame);
+        Button startGameButton = (Button)findViewById(R.id.newgame);
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +31,7 @@ public class OpeningScreen extends AppCompatActivity {
             }
         });
 
-        settingsButton = (ImageButton)findViewById(R.id.settingsbutton);
+        ImageButton settingsButton = (ImageButton)findViewById(R.id.settingsbutton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +40,7 @@ public class OpeningScreen extends AppCompatActivity {
             }
         });
 
-        aboutButton = (ImageButton)findViewById(R.id.aboutbutton);
+        ImageButton aboutButton = (ImageButton)findViewById(R.id.aboutbutton);
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +49,7 @@ public class OpeningScreen extends AppCompatActivity {
             }
         });
 
-        galleryButton = (ImageButton)findViewById(R.id.gallerybutton);
+        ImageButton galleryButton = (ImageButton)findViewById(R.id.gallerybutton);
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +62,5 @@ public class OpeningScreen extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         this.finish();
-        return;
     }
 }

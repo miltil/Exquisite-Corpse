@@ -18,7 +18,6 @@ public class AboutActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, OpeningScreen.class);
         startActivity(intent);
-        return;
     }
 
 }

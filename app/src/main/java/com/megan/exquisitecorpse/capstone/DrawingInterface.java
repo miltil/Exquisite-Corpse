@@ -9,19 +9,15 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -35,22 +31,15 @@ import me.panavtec.drawableview.DrawableViewConfig;
 public class DrawingInterface extends AppCompatActivity implements DialogInterface.OnCancelListener {
 
     private TextView timerView;
-    private Button undoButton;
-    private Button doneButton;
     private ImageButton black, red, pink, orange, yellow, green, teal, blue, light_blue,
             purple, lavender, brown, gray, white;
-    private TextView titleText;
     private String currentSegment = "next segment!";
     private String currentPlayer;
-    private SeekBar lineWidthAdjust;
     private DrawableView drawableView;
     private DrawableViewConfig config = new DrawableViewConfig();
-    private ImageView lineThickness;
     private boolean lastFlag = false;
     private CountDownTimer timer;
     private boolean zoomable = true;
-    private String timeLimitString;
-    private int timeLimit;
     private boolean timerFlag = true;
     private Bitmap bitmapImage;
     private byte[] byteArrayImage;
@@ -64,7 +53,6 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
     private int timerRemaining = 30000;
     private int currentColor;
     private float currentWidth;
-    private int numPlayers;
     InterstitialAd mInterstitialAd;
 
     @Override
@@ -125,6 +113,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
                 requestNewInterstitial();
                 Intent intent = new Intent(DrawingInterface.this, SheetOfPaper.class);
                 intent.putExtra("lastFlag", lastFlag);
+                intent.putExtra("onePlayer", currentSegment);
                 startActivity(intent);
             }
         });
@@ -139,14 +128,13 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         zoomable = preferences.getBoolean("zoom", true);
-        timeLimitString = preferences.getString("timer", "30");
-        timeLimit = Integer.parseInt(timeLimitString) * 1000;
-        numPlayers = preferences.getInt("numPlayers", 3);
+        String timeLimitString = preferences.getString("timer", "30");
+        int timeLimit = Integer.parseInt(timeLimitString) * 1000;
 
         configureDrawView();
         setColorButtons();
 
-        undoButton = (Button)findViewById(R.id.undo_button);
+        Button undoButton = (Button)findViewById(R.id.undo_button);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +142,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
             }
         });
 
-        doneButton = (Button)findViewById(R.id.done_button);
+        Button doneButton = (Button)findViewById(R.id.done_button);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,9 +167,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
             }
         });
 
-        lineThickness = (ImageView) findViewById(R.id.lineThickness);
-
-        lineWidthAdjust = (SeekBar)findViewById(R.id.lineWidthAdjust);
+        SeekBar lineWidthAdjust = (SeekBar)findViewById(R.id.lineWidthAdjust);
         lineWidthAdjust.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progress = 1;
 
@@ -256,7 +242,7 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
             }
 
             public void onFinish() {
-                timerView.setText("Time's up!");
+                timerView.setText(getResources().getText(R.string.times_up));
 
                 bitmapImage = drawableView.obtainBitmap();
                 byteArrayImage = Utility.getBytes(bitmapImage);
@@ -410,10 +396,6 @@ public class DrawingInterface extends AppCompatActivity implements DialogInterfa
 
         drawableView.setBackgroundColor(getResources().getColor(R.color.white));
 
-     /*   if(numPlayers == 2 || numPlayers == 4) {
-            int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 125, getResources().getDisplayMetrics());
-            drawableView.getLayoutParams().height = height;
-        } */
     }
 
     @Override

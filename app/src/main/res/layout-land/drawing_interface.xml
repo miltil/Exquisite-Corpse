@@ -186,6 +186,7 @@
                 android:layout_gravity="center_horizontal"
                 android:textSize="24sp"
                 android:drawableLeft="@drawable/undo"
+                android:drawableStart="@drawable/undo"
                 />
 
 
@@ -210,7 +211,8 @@
                 android:text="@string/done"
                 android:layout_gravity="center_horizontal"
                 android:textSize="24sp"
-                android:drawableLeft="@drawable/done"/>
+                android:drawableLeft="@drawable/done"
+                android:drawableStart="@drawable/done"/>
 
         </LinearLayout>
 

@@ -9,16 +9,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class PassingPrompt extends DialogFragment {
     String playerNamesString;
@@ -71,7 +68,7 @@ public class PassingPrompt extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View convertView = (LinearLayout) inflater.inflate(R.layout.passing_prompt_dialog, null);
+        View convertView = inflater.inflate(R.layout.passing_prompt_dialog, null);
         builder.setView(convertView)
                 .setPositiveButton(R.string.ready_button, new DialogInterface.OnClickListener() {
                     @Override

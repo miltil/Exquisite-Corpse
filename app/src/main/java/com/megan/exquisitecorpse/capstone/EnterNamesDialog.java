@@ -1,7 +1,6 @@
 package com.megan.exquisitecorpse.capstone;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,16 +9,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Random;
 import android.widget.ArrayAdapter;
 
 import com.activeandroid.query.Select;
@@ -50,16 +46,16 @@ public class EnterNamesDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View convertView = (LinearLayout) inflater.inflate(R.layout.enter_names_dialog, null);
+        View convertView = inflater.inflate(R.layout.enter_names_dialog, null);
 
         final AutoCompleteTextView player1 = (AutoCompleteTextView) convertView.findViewById(R.id.name1);
-        player1.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
+        player1.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
         final AutoCompleteTextView player2 = (AutoCompleteTextView) convertView.findViewById(R.id.name2);
-        player2.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
+        player2.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
         final AutoCompleteTextView player3 = (AutoCompleteTextView) convertView.findViewById(R.id.name3);
-        player3.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
+        player3.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
         final AutoCompleteTextView player4 = (AutoCompleteTextView) convertView.findViewById(R.id.name4);
-        player4.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
+        player4.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, artistNameArray));
         builder.setView(convertView)
                 .setPositiveButton(R.string.continue_button, new DialogInterface.OnClickListener() {
                     @Override
@@ -247,7 +243,15 @@ public class EnterNamesDialog extends DialogFragment {
             player4.setVisibility(View.GONE);
 
             //Set up sections
-            sectionsString = "legs";
+            final Random rndBody = new Random();
+            final int section = rndBody.nextInt(3);
+            if(section == 0){
+                sectionsString = "head";
+            } else if(section == 1){
+                sectionsString = "torso";
+            } else {
+                sectionsString = "legs";
+            }
             editor.putString("segments", sectionsString);
             editor.commit();
         }

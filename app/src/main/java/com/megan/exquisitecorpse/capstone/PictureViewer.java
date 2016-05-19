@@ -3,19 +3,16 @@ package com.megan.exquisitecorpse.capstone;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.activeandroid.query.Select;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PictureViewer extends AppCompatActivity {
@@ -25,7 +22,6 @@ public class PictureViewer extends AppCompatActivity {
     TextView artistHolder;
     List nameAssociationList;
     long picID;
-    ArrayList<String> artistList;
     String artistListString;
     NameAssociation nameAssociation;
     private String artistString;
@@ -127,7 +123,6 @@ public class PictureViewer extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, Gallery.class);
         startActivity(intent);
-        return;
     }
 
 }

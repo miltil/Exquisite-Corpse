@@ -95,4 +95,9 @@
     <string name="undo">Undo</string>
     <string name="done">Done</string>
 
+    <string name="fab">Start new game</string>
+
+    <string name="empty_gallery">You haven\'t created any drawings yet.</string>
+    <string name="times_up">Time\'s up!</string>
+    <string name="empty_search">Sorry, no items match your search.</string>
 </resources>
